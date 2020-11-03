@@ -11,8 +11,5 @@ public class Main {
 //	    view.printDoctors();
 //	    view.printRooms();
 //	    view.printAllocations();
-//		InputManager.decisionBranch();
-		InputManager.visualize();
-//		InputManager.interactWith();
     }
 }

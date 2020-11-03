@@ -11,6 +11,4 @@ public enum SurgeryRoomType {
             default: return Integer.MAX_VALUE;
         }
     }
-
-
 }

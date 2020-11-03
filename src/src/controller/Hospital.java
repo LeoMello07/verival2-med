@@ -2,8 +2,8 @@ package src.controller;
 
 import src.model.Allocation;
 import src.model.Doctor;
+import src.model.Period;
 import src.model.SurgeryRoom;
-import src.model.Time;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +20,14 @@ public class Hospital {
         this.allocations = new ArrayList<>();
     }
 
-    public boolean allocate(Doctor doctor, SurgeryRoom room, Time time) {
+    public boolean allocate(Doctor doctor, SurgeryRoom room, Period period) {
         for (Allocation allocation : allocations) {
-            if (allocation.getTime().compareTo(time) > 0) {
+            if (allocation.overlaps(period)) {
                 return false;
             }
         }
-        allocations.add(new Allocation(doctor, room, time));
-        allocations.sort( (a1, a2) -> a1.getTime().compareTo(a2.getTime()) );
+        allocations.add(new Allocation(doctor, room, period));
+        allocations.sort( (a1, a2) -> a1.getPeriod().rawValue() - a2.getPeriod().rawValue() );
         return true;
     }
 

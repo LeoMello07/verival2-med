@@ -3,14 +3,22 @@ package src.model;
 import java.util.Date;
 
 public class Allocation {
-    Doctor doctor;
-    SurgeryRoom room;
-    Time time;
+    private Doctor doctor;
+    private SurgeryRoom room;
+    private Period period;
 
-    public Allocation(Doctor doctor, SurgeryRoom room, Time time) {
+    public Allocation(Doctor doctor, SurgeryRoom room, Period period) {
         this.doctor = doctor;
         this.room = room;
-        this.time = time;
+        this.period = period;
+    }
+
+    public Boolean overlaps(Period period) {
+            return period.overlaps(period);
+    }
+
+    public Integer getCost() {
+        return room.getType().price() * (period.endHour - period.startHour) ;
     }
 
     public Doctor getDoctor() {
@@ -29,12 +37,12 @@ public class Allocation {
         this.room = room;
     }
 
-    public Time getTime() {
-        return time;
+    public Period getPeriod() {
+        return period;
     }
 
-    public void setDate(Time time) {
-        this.time = time;
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
     @Override
@@ -42,7 +50,7 @@ public class Allocation {
         return "Allocation { " +
                 "doctor=" + doctor +
                 ", room=" + room +
-                ", date=" + time +
+                ", period=" + period +
                 " }";
     }
 }

@@ -70,4 +70,10 @@ public class InputManager {
         return next;
     }
 
+    public static int[] days() {
+        int d1 = scanner.nextInt();
+        int d2 = scanner.nextInt();
+        return (new int[] {Math.min(d1, d2), Math.max(d1, d2)});
+    }
+
 }

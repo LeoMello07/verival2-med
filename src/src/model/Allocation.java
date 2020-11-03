@@ -51,6 +51,7 @@ public class Allocation {
                 "doctor=" + doctor +
                 ", room=" + room +
                 ", period=" + period +
+                ", price=" + getCost() +
                 " }";
     }
 }

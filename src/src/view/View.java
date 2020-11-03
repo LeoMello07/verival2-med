@@ -5,7 +5,10 @@ import src.controller.InputManager;
 import src.model.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class View {
     private Hospital hospital;
@@ -25,6 +28,7 @@ public class View {
 //        Create hospital given doctors and rooms
         this.hospital = new Hospital(doctors, rooms);
 //        Now that everything is set up, we wait for the user
+        manageInput();
     }
 
     private void manageInput() {
@@ -37,27 +41,21 @@ public class View {
             }
         }
     }
-//        System.out.println("Inform which list you want to see:");
-//        System.out.println("1. Doctors");
-//        System.out.println("2. Surgery Rooms");
-//        System.out.println("3. All allocations and prices");
-//        System.out.println("4. All allocations between 2 dates");
-//        System.out.println("5. All reservations");
-//        System.out.println("6. Generated cost by doctor");
-//        System.out.println("7. Generated cost by surgery room");
 
     private void visualize() {
         int value = InputManager.visualize();
         if (value == 8) { return; }
         switch (value) {
-            case 1: printDoctors(); break;
-            case 2: printRooms(); break;
-            case 3: printAllocations(); break;
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            default: return;
+            case 1 -> printDoctors();
+            case 2 -> printRooms();
+            case 3 -> printAllocations();
+            case 4 -> {
+                int[] days = InputManager.days();
+                printAllocations(days[0], days[1]);
+            }
+            case 5 -> printReservations();
+            case 6 -> costByDoctor();
+            case 7 -> costByRoom();
         }
     }
 
@@ -92,6 +90,60 @@ public class View {
         System.out.println("--------");
         for (Allocation allocation : hospital.getAllocations()) {
             System.out.println(allocation);
+        }
+        System.out.println("--------\n");
+    }
+
+    public void printAllocations(int day1, int day2) {
+        System.out.println("Allocations between day " + day1 + " and " + day2 + ": ");
+        System.out.println("--------");
+        for (Allocation allocation : hospital.getAllocations()
+                .stream()
+                .filter( a -> a.getPeriod().day > day1 && a.getPeriod().day < day2 )
+                .collect(Collectors.toList()) ) {
+            System.out.println(allocation);
+        }
+        System.out.println("--------\n");
+    }
+
+    public void printReservations() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println("All reservations:");
+        System.out.println("--------");
+        for (Allocation allocation : hospital.getAllocations()
+                .stream()
+                .filter( a -> a.getPeriod().day > day)
+                .collect(Collectors.toList()) ) {
+            System.out.println(allocation);
+        }
+        System.out.println("--------\n");
+    }
+
+    public void costByDoctor() {
+        System.out.println("Costs by doctor: ");
+        System.out.println("--------");
+        for (Doctor doctor : hospital.getDoctors()) {
+            int total = hospital.getAllocations()
+                    .stream()
+                    .filter( a -> a.getDoctor().getName().equals(doctor.getName()) )
+                    .map(Allocation::getCost)
+                    .reduce(0, Integer::sum);
+            System.out.println("Doctor: " + doctor.getName() + " - Cost: " + total + ".");
+        }
+        System.out.println("--------\n");
+    }
+
+    public void costByRoom() {
+        System.out.println("Costs by Surgery Room: ");
+        System.out.println("--------");
+        for (SurgeryRoom room : hospital.getSurgeryRooms()) {
+            int total = hospital.getAllocations()
+                    .stream()
+                    .filter( a -> a.getRoom().getName().equals(room.getName()) )
+                    .map(Allocation::getCost)
+                    .reduce(0, Integer::sum);
+            System.out.println("Surgery Room: " + room.getName() + " - Cost: " + total + ".");
         }
         System.out.println("--------\n");
     }

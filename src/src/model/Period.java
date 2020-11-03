@@ -1,7 +1,7 @@
 package src.model;
 
 public class Period implements Comparable <Period> {
-    int day, startHour, endHour;
+    public int day, startHour, endHour;
 
     public Period(int day, int startHour, int endHour) {
         this.day = day;

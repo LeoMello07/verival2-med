@@ -97,7 +97,7 @@ public class View {
     }
 
     public void createAllocation(Doctor doctor, SurgeryRoom room, Period period) {
-        hospital.allocate(doctor, room, period);
+        hospital.allocate(new Allocation(doctor, room, period));
     }
 
     public void printDoctors() {

@@ -24,23 +24,6 @@ public class Hospital {
         this.allocations = allocations;
     }
 
-    public boolean allocate(Doctor doctor, SurgeryRoom room, Period period) {
-        if (!canAllocateDoctorToRoom(doctor.getSpecialization(), room.getType())) {
-            return false;
-        }
-        if (!respectTimeStamp(room.getType(), period)) {
-            return false;
-        }
-        for (Allocation allocation : allocations) {
-            if (allocation.overlaps(period)) {
-                return false;
-            }
-        }
-        allocations.add(new Allocation(doctor, room, period));
-        allocations.sort( (a1, a2) -> a1.getPeriod().rawValue() - a2.getPeriod().rawValue() );
-        return true;
-    }
-
     public boolean allocate(Allocation newAllocation) {
         if (newAllocation == null) {
             System.out.println("Allocation cannot be null");

@@ -21,12 +21,30 @@ public class View {
         doctors.add(new Doctor("Daniel Callegari", 951, Specialization.neurologist));
 //        Create rooms list
         List <SurgeryRoom> rooms = new ArrayList<>();
-        rooms.add(new SurgeryRoom("Hera", SurgeryRoomType.small));
+        rooms.add(new SurgeryRoom("Aeolus", SurgeryRoomType.small));
         rooms.add(new SurgeryRoom("Demeter", SurgeryRoomType.big));
-        rooms.add(new SurgeryRoom("Hestia", SurgeryRoomType.high_risk));
-        rooms.add(new SurgeryRoom("Hephaestus", SurgeryRoomType.high_risk));
-//        Create hospital given doctors and rooms
-        this.hospital = new Hospital(doctors, rooms);
+        rooms.add(new SurgeryRoom("Hera", SurgeryRoomType.high_risk));
+        rooms.add(new SurgeryRoom("Nyx", SurgeryRoomType.high_risk));
+//        Create allocations list
+        List <Allocation> allocations = new ArrayList<>();
+//        Dermatologist surgery
+        allocations.add(new Allocation(doctors.get(0), rooms.get(0), new Period(0, 10, 12)));
+        allocations.add(new Allocation(doctors.get(0), rooms.get(0), new Period(3, 10, 12)));
+        allocations.add(new Allocation(doctors.get(0), rooms.get(0), new Period(5, 10, 12)));
+        allocations.add(new Allocation(doctors.get(0), rooms.get(0), new Period(31, 10, 12)));
+//        Cardiologist surgery
+        allocations.add(new Allocation(doctors.get(1), rooms.get(1), new Period(1, 10, 12)));
+        allocations.add(new Allocation(doctors.get(1), rooms.get(2), new Period(2, 10, 12)));
+        allocations.add(new Allocation(doctors.get(1), rooms.get(3), new Period(4, 10, 12)));
+        allocations.add(new Allocation(doctors.get(1), rooms.get(3), new Period(30, 10, 12)));
+//        Neurologist surgery
+        allocations.add(new Allocation(doctors.get(2), rooms.get(1), new Period(0, 10, 12)));
+        allocations.add(new Allocation(doctors.get(2), rooms.get(2), new Period(3, 10, 12)));
+        allocations.add(new Allocation(doctors.get(2), rooms.get(2), new Period(5, 10, 12)));
+        allocations.add(new Allocation(doctors.get(2), rooms.get(3), new Period(31, 10, 12)));
+
+//        Creates hospital given doctors, rooms and allocations
+        this.hospital = new Hospital(doctors, rooms, allocations);
 //        Now that everything is set up, we wait for the user
         manageInput();
     }
@@ -124,11 +142,11 @@ public class View {
         System.out.println("Costs by doctor: ");
         System.out.println("--------");
         for (Doctor doctor : hospital.getDoctors()) {
-            int total = hospital.getAllocations()
+            Double total = hospital.getAllocations()
                     .stream()
                     .filter( a -> a.getDoctor().getName().equals(doctor.getName()) )
                     .map(Allocation::getCost)
-                    .reduce(0, Integer::sum);
+                    .reduce(0.0, Double::sum);
             System.out.println("Doctor: " + doctor.getName() + " - Cost: " + total + ".");
         }
         System.out.println("--------\n");
@@ -138,11 +156,11 @@ public class View {
         System.out.println("Costs by Surgery Room: ");
         System.out.println("--------");
         for (SurgeryRoom room : hospital.getSurgeryRooms()) {
-            int total = hospital.getAllocations()
+            Double total = hospital.getAllocations()
                     .stream()
                     .filter( a -> a.getRoom().getName().equals(room.getName()) )
                     .map(Allocation::getCost)
-                    .reduce(0, Integer::sum);
+                    .reduce(0.0, Double::sum);
             System.out.println("Surgery Room: " + room.getName() + " - Cost: " + total + ".");
         }
         System.out.println("--------\n");

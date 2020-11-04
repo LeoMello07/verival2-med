@@ -60,7 +60,7 @@ public class InputManager {
                 next = scanner.nextInt();
                 if (next < 1 || next > 8) { next = null; }
                 if (next == 3) {
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting...\n");
                     break;
                 }
             } catch (Exception e) {
@@ -71,7 +71,9 @@ public class InputManager {
     }
 
     public static int[] days() {
+        System.out.println("\nInform the first day");
         int d1 = scanner.nextInt();
+        System.out.println("\nInform the second day");
         int d2 = scanner.nextInt();
         return (new int[] {Math.min(d1, d2), Math.max(d1, d2)});
     }

@@ -1,7 +1,5 @@
 package src.model;
 
-import java.util.Date;
-
 public class Allocation {
     private Doctor doctor;
     private SurgeryRoom room;
@@ -17,8 +15,9 @@ public class Allocation {
             return period.overlaps(period);
     }
 
-    public Integer getCost() {
-        return room.getType().price() * (period.endHour - period.startHour) ;
+    public Double getCost() {
+        return room.getType().price() * (period.endHour - period.startHour) *
+                (room.getType() == SurgeryRoomType.high_risk && period.startHour < 10 ? 0.8 : 1 ) ;
     }
 
     public Doctor getDoctor() {
@@ -48,8 +47,8 @@ public class Allocation {
     @Override
     public String toString() {
         return "Allocation { " +
-                "doctor=" + doctor +
-                ", room=" + room +
+                "doctor=" + doctor.getName() +
+                ", room=" + room.getName() +
                 ", period=" + period +
                 ", price=" + getCost() +
                 " }";

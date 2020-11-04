@@ -11,4 +11,8 @@ public enum SurgeryRoomType {
             default: return Integer.MAX_VALUE;
         }
     }
+
+    public int minimumTime() {
+        return this == high_risk ? 3 : 2;
+    }
 }

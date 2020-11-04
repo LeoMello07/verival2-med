@@ -10,7 +10,11 @@ public class Period implements Comparable <Period> {
     }
 
     public boolean overlaps(Period period) {
-        if (day != period.day) { return false; }
+        if (period == null || day != period.day) { return false; }
+        if ((startHour > period.startHour && endHour < period.endHour) ||
+            period.startHour > startHour && period.endHour < endHour) {
+            return true;
+        }
         return (startHour >= period.startHour && startHour <= period.endHour) ||
                 (endHour >= period.startHour && endHour <= period.endHour);
     }

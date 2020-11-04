@@ -63,7 +63,7 @@ public class Hospital {
         return true;
     }
 
-    private boolean canAllocateDoctorToRoom(Specialization specialization, SurgeryRoomType type) {
+    public boolean canAllocateDoctorToRoom(Specialization specialization, SurgeryRoomType type) {
         if (specialization == null || type == null) {
             System.out.println("Specialization input is null");
             return false;

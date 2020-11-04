@@ -17,7 +17,7 @@ public class Allocation {
 
     public Double getCost() {
         return room.getType().price() * (period.endHour - period.startHour) *
-                (room.getType() == SurgeryRoomType.high_risk && period.startHour < 10 ? 0.8 : 1 ) ;
+                (room.getType() == SurgeryRoomType.high_risk && period.startHour < 10 ? 0.9 : 1 ) ;
     }
 
     public Doctor getDoctor() {

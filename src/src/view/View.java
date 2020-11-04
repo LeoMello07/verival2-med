@@ -78,7 +78,22 @@ public class View {
     }
 
     private void interact() {
-
+        int value = InputManager.interactWith();
+        if (value == 3) { return; }
+        if (value == 1) {
+            Allocation allocation = InputManager.createAllocation(hospital.getDoctors(), hospital.getSurgeryRooms());
+            if (hospital.allocate(allocation)) {
+                System.out.println("Allocation successful!");
+            } else {
+                System.out.println("Could not complete allocation.");
+            }
+        } else {
+            if (InputManager.deleteReservation(hospital.getAllocations())) {
+                System.out.println("Reservation deleted successfully");
+            } else {
+                System.out.println("Failed to delete reservation.");
+            }
+        }
     }
 
     public void createAllocation(Doctor doctor, SurgeryRoom room, Period period) {
@@ -117,7 +132,7 @@ public class View {
         System.out.println("--------");
         for (Allocation allocation : hospital.getAllocations()
                 .stream()
-                .filter( a -> a.getPeriod().day > day1 && a.getPeriod().day < day2 )
+                .filter( a -> a.getPeriod().day >= day1 && a.getPeriod().day <= day2 )
                 .collect(Collectors.toList()) ) {
             System.out.println(allocation);
         }

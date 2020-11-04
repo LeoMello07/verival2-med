@@ -12,7 +12,7 @@ public class Allocation {
     }
 
     public Boolean overlaps(Period period) {
-            return period.overlaps(period);
+        return this.period.overlaps(period);
     }
 
     public Double getCost() {

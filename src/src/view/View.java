@@ -65,15 +65,22 @@ public class View {
         if (value == 8) { return; }
         switch (value) {
             case 1: printDoctors();
+            break;
             case 2: printRooms();
+            break;
             case 3: printAllocations();
+            break;
             case 4: {
                 int[] days = InputManager.days();
                 printAllocations(days[0], days[1]);
             }
+            break;
             case 5: printReservations();
+            break;
             case 6: costByDoctor();
+            break;
             case 7: costByRoom();
+            break;
         }
     }
 

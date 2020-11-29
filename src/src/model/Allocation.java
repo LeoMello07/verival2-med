@@ -47,10 +47,10 @@ public class Allocation {
     @Override
     public String toString() {
         return "Allocation { " +
-                "doctor=" + doctor.getName() +
-                ", room=" + room.getName() +
-                ", period=" + period +
-                ", price=" + getCost() +
+                "doutor=" + doctor.getName() +
+                ", quarto=" + room.getName() +
+                ", periodo=" + period +
+                ", preço=" + getCost() +
                 " }";
     }
 }

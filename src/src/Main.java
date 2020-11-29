@@ -1,7 +1,6 @@
 package src;
 
 
-import src.controller.InputManager;
 import src.view.View;
 
 public class Main {

@@ -50,7 +50,7 @@ public class View {
     }
 
     private void manageInput() {
-        int action = 0;
+
         while (true) {
             if (InputManager.decisionBranch() == 1) {
                 visualize();
@@ -64,16 +64,16 @@ public class View {
         int value = InputManager.visualize();
         if (value == 8) { return; }
         switch (value) {
-            case 1 -> printDoctors();
-            case 2 -> printRooms();
-            case 3 -> printAllocations();
-            case 4 -> {
+            case 1: printDoctors();
+            case 2: printRooms();
+            case 3: printAllocations();
+            case 4: {
                 int[] days = InputManager.days();
                 printAllocations(days[0], days[1]);
             }
-            case 5 -> printReservations();
-            case 6 -> costByDoctor();
-            case 7 -> costByRoom();
+            case 5: printReservations();
+            case 6: costByDoctor();
+            case 7: costByRoom();
         }
     }
 
@@ -101,7 +101,7 @@ public class View {
     }
 
     public void printDoctors() {
-        System.out.println("Doctors:");
+        System.out.println("Doutores:");
         System.out.println("--------");
         for (Doctor doctor : hospital.getDoctors()) {
             System.out.println(doctor);
@@ -110,7 +110,7 @@ public class View {
     }
 
     public void printRooms() {
-        System.out.println("Rooms:");
+        System.out.println("Salas/Quartos:");
         System.out.println("--------");
         for (SurgeryRoom room : hospital.getSurgeryRooms()) {
             System.out.println(room);
@@ -119,7 +119,7 @@ public class View {
     }
 
     public void printAllocations() {
-        System.out.println("Allocations:");
+        System.out.println("Reservas:");
         System.out.println("--------");
         for (Allocation allocation : hospital.getAllocations()) {
             System.out.println(allocation);
@@ -128,7 +128,7 @@ public class View {
     }
 
     public void printAllocations(int day1, int day2) {
-        System.out.println("Allocations between day " + day1 + " and " + day2 + ": ");
+        System.out.println("Reservas entre " + day1 + " e " + day2 + ": ");
         System.out.println("--------");
         for (Allocation allocation : hospital.getAllocations()
                 .stream()
@@ -142,7 +142,7 @@ public class View {
     public void printReservations() {
         GregorianCalendar calendar = new GregorianCalendar();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        System.out.println("All reservations:");
+        System.out.println("Todas as reservas: ");
         System.out.println("--------");
         for (Allocation allocation : hospital.getAllocations()
                 .stream()
@@ -154,7 +154,7 @@ public class View {
     }
 
     public void costByDoctor() {
-        System.out.println("Costs by doctor: ");
+        System.out.println("Gastos por doutor: ");
         System.out.println("--------");
         for (Doctor doctor : hospital.getDoctors()) {
             Double total = hospital.getAllocations()
@@ -162,13 +162,13 @@ public class View {
                     .filter( a -> a.getDoctor().getName().equals(doctor.getName()) )
                     .map(Allocation::getCost)
                     .reduce(0.0, Double::sum);
-            System.out.println("Doctor: " + doctor.getName() + " - Cost: " + total + ".");
+            System.out.println("Doutor: " + doctor.getName() + " - Gasto: " + total + ".");
         }
         System.out.println("--------\n");
     }
 
     public void costByRoom() {
-        System.out.println("Costs by Surgery Room: ");
+        System.out.println("Gastos de cada sala cirurgica: ");
         System.out.println("--------");
         for (SurgeryRoom room : hospital.getSurgeryRooms()) {
             Double total = hospital.getAllocations()
@@ -176,7 +176,7 @@ public class View {
                     .filter( a -> a.getRoom().getName().equals(room.getName()) )
                     .map(Allocation::getCost)
                     .reduce(0.0, Double::sum);
-            System.out.println("Surgery Room: " + room.getName() + " - Cost: " + total + ".");
+            System.out.println("Nome da sala: " + room.getName() + " - Gasto: " + total + ".");
         }
         System.out.println("--------\n");
     }

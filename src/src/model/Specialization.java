@@ -5,10 +5,10 @@ public enum Specialization {
 
     public String value() {
         switch (this) {
-            case dermatologist: return "Dermatologist";
-            case cardiologist: return "Cardiologist";
-            case neurologist: return "Neurologist";
-            default: return "Error finding Specialization";
+            case dermatologist: return "Dermatologista";
+            case cardiologist: return "Cardiologista";
+            case neurologist: return "Neurologista";
+            default: return "Especialização não encontrada.";
         }
     }
 }

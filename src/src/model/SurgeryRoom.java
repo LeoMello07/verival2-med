@@ -20,8 +20,8 @@ public class SurgeryRoom {
     @Override
     public String toString() {
         return "SurgeryRoom { " +
-                "name='" + name + '\'' +
-                ", type=" + type +
+                "nome='" + name + '\'' +
+                ", tipo=" + type +
                 " }";
     }
 }

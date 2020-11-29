@@ -31,9 +31,9 @@ public class Period implements Comparable <Period> {
     @Override
     public String toString() {
         return "Period { " +
-                "day=" + day +
-                ", startHour=" + startHour +
-                ", endHour=" + endHour +
+                "dia=" + day +
+                ", horaInicio=" + startHour +
+                ", horaTermino=" + endHour +
                 " }";
     }
 }

@@ -16,7 +16,7 @@ public class View {
     public View() {
 //        Create doctors list
         List <Doctor> doctors = new ArrayList<>();
-        doctors.add(new Doctor("Luiz Guerra", 135, Specialization.dermatologist));
+        doctors.add(new Doctor("Rosane Malheiros", 135, Specialization.dermatologist));
         doctors.add(new Doctor("Leonardo de Mello", 468, Specialization.cardiologist));
         doctors.add(new Doctor("Daniel Callegari", 951, Specialization.neurologist));
 //        Create rooms list
